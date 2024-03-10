@@ -159,10 +159,31 @@ watchEffect(async () => {
   data.value = await response.json()
   console.log('watchEffect', data)
 })
+// 声明一个ref来存放该元素的引用
+// 必须和模板里的ref同名
+const input = ref(null);
+onMounted(() => {
+  input.value.focus()
+  console.log('input focused:', input)
+})
+
+const list = ['A', 'B', 'C', 'D']
+const itemRefs = ref([])
+onMounted(() => {
+  console.log('itemRefs', itemRefs)
+})
 </script>
 
 <template>
   <div class="wrapper">
+
+    <ul>
+      <li v-for="item in list" ref="itemRefs">
+        {{item}}
+      </li>
+    </ul>
+    <input ref="input">
+    <br/>
     <button @click="object.count++">object.count</button>
     <br/>
     <button @click="x++">x</button>
